@@ -1,0 +1,47 @@
+Feri: HarcRendszer
+Lölő : kocsma, LootingSystem
+Titike <3: minden is (xd)
+
+feladatok:
+-csontváz részletezés:
+    -adventure
+        -hunting
+        -több
+    -camping
+        -sleep
+        -több
+    -piac
+    -falu
+    -kazamata
+    -boss_fight
+
+
+
+kocsma:
+  - kiki / töritanár alias kotymáros :D 
+
+
+loot:
+  - a kaki "inventory-carry" boostot ad ~2 napig.
+
+szorny:
+  - Tomi írja már azokat is!
+
+fegyver:
+  - Feri írja őket!
+  - Ha nem jut eszedbe más Feri. Csináld azt, hogy pl.: Démoni Katana
+
+camping:
+  - szarhatnékja van a karakternek...
+
+harc:
+  - Kocsmárosnál megveszed könyv formájában a fingást, csak akkor olvashatsz csak ha van nálad spellbook.
+
+secrets:
+  - Készítőkön belül " /_o/_o", ezt beírva lehet megszerezni "Tomi röhögése" nevű varázslatot.
+
+
+
+
+
+Armorok
