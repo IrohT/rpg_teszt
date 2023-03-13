@@ -15,7 +15,7 @@ meat = Consumable(food_got=60, f_type="flesh", name="matata", hp_get=0, price=60
 # Alap fegyverek(common)
 
 # ----------------------------------------shield--------------------------------------------------
-lower_arm = Weapon(damage=0, name="for_arm", durability=9999999999999, stamina_gain=25, w_type='shield', rarity="fist", defense=5)
+lower_arm = Weapon(damage=0, name="for_arm", durability=9999999999999, stamina_gain=25, w_type='beater_shield', rarity="fist", defense=5)
 shield = Weapon(damage=0, name="shield", durability=40, stamina_gain=25, w_type='shield', rarity="common", defense=34)
 # ---------------------------------------weapons---------------------
 sword = Weapon(damage=34, name="sword", durability=40, stamina_gain=25, w_type='one_handed', rarity="common")
@@ -109,19 +109,14 @@ jozsi = Npc(name="Józsi")
 
 # -------------------------------------------változók--------------------------------
 
-
-stat = [f"hp= {player.hp}", f"power= {player.power}", f"defense={player.p_shield.defense}", f"stamina= {player.stamina}",
-                    f"hungry= {player.hungry}", f"weapon= {player.p_weapon.name}", f"shield= {player.p_shield.name}"]
-
 day = 1
 cube = cuby(10)
 actions = ["adventure", "camping", "inventory", "stat", "exit"]
-inventory = [Weapon.name_weapon, Weapon.shield_name, Consumable.food_name]
+inventory = [Weapon.equipment_name, Consumable.food_name]
 inventory_things = ["weapon_equip", "weapon_deequip", "fullventory", "exit"]
 camp = ["eat", "sleep", "exit"]
 adventure = ["looting", "hunting", "exit"]
 combat = ["m_stat", "fight", "deflect", "flee" ]
 game = True
 napszak = ["Reggel", "Dél-Délután", "Este"]
-weapon_counter = 0
-shield_counter = 0
+

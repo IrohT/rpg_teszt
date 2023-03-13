@@ -2,7 +2,6 @@ import random
 
 # ------------------------------------monster----------------------------------
 
-
 def cuby(num):
     return random.randint(1, num)
 
@@ -59,10 +58,9 @@ class Monster:
 
 
 class Weapon:
-    shield = []
-    shield_name = []
-    name_weapon = []
-    weapons = []
+    equipment = []
+    equipment_name = []
+
     fist = []
     common = []
     uncommon = []
@@ -97,25 +95,14 @@ class Weapon:
             Weapon.mythic.append(self)
 
         if self.durability <= 0:
-            Weapon.weapons.remove(self.name)
-            print(f"eltört a fegyvered: {self.name}")
+            self.equipment.remove(self)
+            self.equipment_name.remove((self.name))
+            print(f"eltört egy felszerelésed: {self.name}")
 
     def find_weapon(self):
-        if self.w_type == "shield":
-            Weapon.shield.append(self)
-            Weapon.shield_name.append(self.name)
-            if self.name in Weapon.shield_name:
-                print(f"megtaláltál egy pajzsot: {self.name}")
-            else:
-                print(f"megtaláltál egy új pajzsot: {self.name}")
-
-        else:
-            Weapon.weapons.append(self)
-            Weapon.name_weapon.append(self.name)
-            if self.name in Weapon.name_weapon:
-                print(f"megtaláltál egy fegyvert: {self.name}")
-            else:
-                print(f"megtaláltál egy új fegyvert: {self.name}")
+        self.equipment.append(self)
+        self.equipment_name.append(self.name)
+        print(f"Találtál egy felszerelést: {self.name}")
 
     @staticmethod
     def weapon_dropper(monster):
@@ -190,7 +177,9 @@ class Consumable:
 
 class Player:
     equipped = []
-    name_equip = []
+    equip_name = []
+    weapon_counter = 0
+    shield_counter = 0
 
     def __init__(self, hp, stamina, power, hungry, p_weapon, p_shield, defense, current_enemy=None, money=0):
         self.hp = hp
@@ -318,37 +307,41 @@ class Player:
             else:
                 print(f"Nincs ilyen opció: {question}")
 
-    def equip(self,ask_weapon, new_weapon, wep_name_list, wep_list):
-          for wep in Weapon.weapons:
-                if wep.name == ask_weapon:
-                    if wep.w_type == "shield":
-                        Weapon.shield.remove(wep); Weapon.shield_name.remove(wep.name)
-                        self.defense -= self.defense
-                        self.p_shield = wep
-                        self.defense += wep.defense
-                    else:
-                        wep_list.remove(new_weapon); wep_name_list.remove(new_weapon.name)
-                        self.defense -= self.defense; self.power -= self.power
-                        self.p_weapon = new_weapon
-                        self.power += new_weapon.damage
-                        self.defense += new_weapon.defense
+    def equip(self, ask_weapon):
+        for wep in Weapon.equipment:
+            if wep.name == ask_weapon:
+                if wep.w_type == "shield":
+                    etype = "shield"
+                else:
+                    etype = "weapon"
 
-                    print(f"felszerelted: {new_weapon.name}")
+                exec(f"if self.p_{etype}.rarity != 'fist': Weapon.equipment.append(self.p_{etype}); Weapon.equipment_name.append(self.p_{etype}.name)")
+                exec(f"self.defense -= self.p_{etype}.defense; self.power -= self.p_{etype}.damage")
+                exec(f"self.p_{etype} = wep")
+                self.defense += wep.defense; self.power += wep.damage
 
-    def deequip(self, wep_name_list, wep_list, new_weapon, shield_list, shield_list_name):
-        if new_weapon.w_type == "shield":
-            shield_list.append(new_weapon)
-            shield_list_name.append(new_weapon.name)
-            self.defense = Weapon.fist[0].defense
-            self.p_shield = Weapon.fist[0]
+                Weapon.equipment.remove(wep); Weapon.equipment_name.remove(wep.name)
+                self.equipped.append(wep); self.equip_name.append(wep.name)
 
-        else:
-            wep_list.append(new_weapon)
-            wep_name_list.append(new_weapon.name)
-            self.power = Weapon.fist[1].damage
-            self.p_weapon = Weapon.fist[1]
+            print(f"felszerelted: {wep.name}")
 
-        print(f"leszerelted: {new_weapon.name}")
+    def deequip(self, ask_wep):
+        for wep in Player.equipped:
+            if wep.name == ask_wep:
+                if wep.w_type == "shield":
+                    etype = "shield"
+                    n = 0
+                else:
+                    etype = "weapon"
+                    n = 1
+
+                Weapon.equipment.append(wep)
+                Weapon.equipment_name.append(wep.name)
+                exec(f"self.defense -= self.p_{etype}.defense; self.power -= self.p_{etype}.damage")
+                exec(f"self.defense += Weapon.fist[{n}].defense; self.power += Weapon.fist[{n}].damage")
+                exec(f"self.p_{etype} = Weapon.fist[{n}]")
+
+            print(f"leszerelted: {wep.name}")
 
 # ---------------------------------------npc---------------------------------------
 
